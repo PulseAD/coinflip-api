@@ -13,8 +13,14 @@ router.get('', async (req, res) => {
     }
     const summoner = await retrieveSummonerByName(req.query.username, req.query.server);
     const rankeds = await retrieveRankeds(summoner.id, req.query.server);
-    // const soloQ = retrieveSoloQ(rankeds);
-    res.json({ summoner, rankeds });
+    const soloQ = retrieveSoloQ(rankeds);
+    res.json({
+      summonerName: summoner.name,
+      tier: soloQ.tier,
+      rank: soloQ.rank,
+      leaguePoints: soloQ.leaguePoints,
+      miniSeries: soloQ.miniSeries ? soloQ.miniSeries : null,
+    });
   } catch (error) {
     console.log(error);
     return res.status(400).json('Username not found on that server');
@@ -45,7 +51,8 @@ const getRankedApiUrl = (id, server) => {
 
 const retrieveSoloQ = (rankeds) => {
   for (ranked of rankeds) {
-    if (ranked.queueType === 'RANKED_SOLO_5X5') {
+    console.log(ranked)
+    if (ranked.queueType === 'RANKED_SOLO_5x5') {
       return ranked;
     }
   }
