@@ -11,7 +11,7 @@ app.get("/", (request, response) => {
   response.sendFile(__dirname + "/views/index.html");
 });
 
-app.get("/start", startRoute);
+app.use("/start", startRoute);
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, () => {

@@ -5,14 +5,14 @@ const axios = require('axios');
 
 router.get('', async (req, res) => {
   try {
-    const { username, server } = req.params.query;
-    if (!servers.includes(server)) {
+    if (!servers.includes(req.query.server)) {
       return res.status(422).json('Server not valid');
     }
-    if (!username) {
+    if (!req.query.username) {
       return res.status(422).json('An username is needed');
     }
-    const summoner = await retrieveSummonerByName(username, server);
+    const summoner = await retrieveSummonerByName(req.query.username, req.query.server);
+    res.json(summoner);
   } catch (error) {
     console.log(error)
     return res.status(400).json('Username not found on that server');
@@ -21,7 +21,8 @@ router.get('', async (req, res) => {
 
 const retrieveSummonerByName = async (username, server) => {
   const url = getApiUrl(username, server);
-  
+  const summoner = await axios.get(url);
+  return Promise.resolve(summoner)
 }
 
 const getApiUrl = (username, server) => {
