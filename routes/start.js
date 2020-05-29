@@ -12,6 +12,7 @@ router.get('', async (req, res) => {
       return res.status(422).json('An username is needed');
     }
     const summoner = await retrieveSummonerByName(req.query.username, req.query.server);
+    const rankeds = await 
     res.json(summoner);
   } catch (error) {
     console.log(error)
@@ -20,14 +21,24 @@ router.get('', async (req, res) => {
 });
 
 const retrieveSummonerByName = async (username, server) => {
-  const url = getApiUrl(username, server);
+  const url = getSummonerApiUrl(username, server);
   const summoner = await axios.get(url);
-  return Promise.resolve(summoner)
+  return Promise.resolve(summoner.data);
 }
 
-const getApiUrl = (username, server) => {
+const getSummonerApiUrl = (username, server) => {
   const apiKey = process.env.API_KEY;
-  return `https://${server}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${apiKey}?api_key=${apiKey}`;
+  return `https://${server}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${username}?api_key=${apiKey}`;
+}
+
+const retrieveRankeds = async (id, server) => {
+  const url = getRankedApiUrl(id, server);
+  const rankeds = await axios.get(url)
+}
+
+const getRankedApiUrl = (id, server) => {
+  const apiKey = process.env.API_KEY;
+  return `https://${server}.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${apiKey}`;
 }
 
 module.exports = router;
