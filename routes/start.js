@@ -12,10 +12,11 @@ router.get('', async (req, res) => {
       return res.status(422).json('An username is needed');
     }
     const summoner = await retrieveSummonerByName(req.query.username, req.query.server);
-    const rankeds = await 
-    res.json(summoner);
+    const rankeds = await retrieveRankeds(summoner.id, req.query.server);
+    // const soloQ = retrieveSoloQ(rankeds);
+    res.json({ summoner, rankeds });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(400).json('Username not found on that server');
   }
 });
@@ -33,12 +34,27 @@ const getSummonerApiUrl = (username, server) => {
 
 const retrieveRankeds = async (id, server) => {
   const url = getRankedApiUrl(id, server);
-  const rankeds = await axios.get(url)
+  const rankeds = await axios.get(url);
+  return Promise.resolve(rankeds.data);
 }
 
 const getRankedApiUrl = (id, server) => {
   const apiKey = process.env.API_KEY;
   return `https://${server}.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${apiKey}`;
+}
+
+const retrieveSoloQ = (rankeds) => {
+  for (ranked of rankeds) {
+    if (ranked.queueType === 'RANKED_SOLO_5X5') {
+      return ranked;
+    }
+  }
+  return {
+    tier: 'IRON',
+    rank: 'IV',
+    leaguePoints: '0',
+    miniSeries: null,
+  };
 }
 
 module.exports = router;
