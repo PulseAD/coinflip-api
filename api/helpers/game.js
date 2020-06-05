@@ -58,7 +58,8 @@ class Game {
     this.handleWinInEventualMiniSeries();
     this.session.messageHistory.unshift({
       message: this.message,
-      lp: this.lp
+      lp: this.lp,
+      date: new Date()
     })
   }
 
@@ -211,7 +212,8 @@ class Game {
     this.handleDefeatInEventualMiniSeries();
     this.session.messageHistory.unshift({
       message: this.message,
-      lp: -this.lp
+      lp: -this.lp,
+      date: new Date()
     })
   }
 
