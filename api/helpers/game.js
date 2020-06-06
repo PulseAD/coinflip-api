@@ -34,9 +34,16 @@ class Game {
     return randomNb <= winrate;
   }
 
+  getInitialWinrate = () => {
+    if (this.session.currentRank.orderedRank < 25) {
+      return 52;
+    }
+    return 50;
+  }
+
   determineWinrate() {
     const rankDifference = this.session.maxRank.orderedRank - this.session.currentRank.orderedRank;
-    return 50 + (rankDifference * 2); 
+    return this.getInitialWinrate() + (rankDifference * 2); 
   }
 
   generateLpNumber() {
