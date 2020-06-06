@@ -98,7 +98,7 @@ class Game {
 
   grantMiniSeries() {
     const rank = this.session.currentRank;
-    this.message = "miniseries_granted";
+    this.message = "new_miniseries";
     this.miniSeriesJustGranted = true;
     if (rank.rank === "I") {
       rank.miniSeries = {
