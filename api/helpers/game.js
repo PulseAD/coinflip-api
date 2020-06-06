@@ -36,7 +36,7 @@ class Game {
 
   determineWinrate() {
     const rankDifference = this.session.maxRank.orderedRank - this.session.currentRank.orderedRank;
-    return 52 + (rankDifference * 2); 
+    return 50 + (rankDifference * 2); 
   }
 
   generateLpNumber() {
