@@ -67,7 +67,10 @@ class Game {
       message: this.message,
       lp: this.lp,
       date: new Date()
-    })
+    });
+    if (this.session.messageHistory.length > 50) {
+      this.session.messageHistory.pop();
+    }
   }
 
   increaseLeaguePoints() {
@@ -221,7 +224,10 @@ class Game {
       message: this.message,
       lp: -this.lp,
       date: new Date()
-    })
+    });
+    if (this.session.messageHistory.length > 50) {
+      this.session.messageHistory.pop();
+    }
   }
 
   decreaseLeaguePoints() {
