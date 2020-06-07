@@ -34,7 +34,7 @@ class Game {
     return randomNb <= winrate;
   }
 
-  getInitialWinrate = () => {
+  getInitialWinrate() {
     if (this.session.currentRank.orderedRank < 25) {
       return 52;
     }
@@ -274,6 +274,9 @@ class Game {
 
   demote() {
     const rank = this.session.currentRank;
+    if (rank.orderedRank === 1) {
+      return;
+    }
     rank.orderedRank--;
     this.setRankTierfromOrderedRank();
     rank.demoteProtection = 2;
