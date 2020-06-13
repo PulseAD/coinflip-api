@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const servers = ['euw1', 'na1', 'eun1', 'tr1', 'ru', 'kr'];
+const servers = ['euw1', 'na1', 'eun1', 'tr1', 'ru', 'kr', 'jp1', 'la1', 'la2', 'oc1', 'br1'];
 const axios = require('axios');
 const Session = require('../models/session.js');
 const getOrderedRank = require('../helpers/getOrderedRank.js');
