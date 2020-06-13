@@ -6,8 +6,8 @@ class Game {
     this.MASTER = 25;
     this.GRANDMASTER = 26;
     this.CHALLENGER = 27;
-    this.lpNeededForGrandMaster = 300;
-    this.lpNeededForChallenger = 600;
+    this.lpNeededForGrandMaster = 350;
+    this.lpNeededForChallenger = 700;
     this.message = "";
     this.miniSeriesJustGranted = false;
   }
