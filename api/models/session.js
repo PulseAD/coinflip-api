@@ -41,7 +41,8 @@ const sessionSchema = mongoose.Schema({
     "date": Date
   }],
   "score": Number,
-  "lastGame": Date
+  "lastGame": Date,
+  "createdAt": Date,
 });
 
 module.exports = mongoose.model('Session', sessionSchema);

@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const newSessionRoute = require('./api/routes/newSession.js');
 const retrieveSessionRoute = require('./api/routes/retrieveSession.js');
 const newGameRoute = require('./api/routes/newGame.js');
+const getLeaderboardsRoute = require('./api/routes/getLeaderboards.js');
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -35,6 +36,7 @@ app.get("/", (request, response) => {
 app.use("/new-session", newSessionRoute);
 app.use("/new-game", newGameRoute);
 app.use("/retrieve-session", retrieveSessionRoute);
+app.use("/leaderboards", getLeaderboardsRoute);
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, () => {

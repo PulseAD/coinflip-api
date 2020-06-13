@@ -63,10 +63,11 @@ const retrieveSoloQ = (rankeds) => {
 
 const createSession = async (summoner, soloQ, server, req) => {
   const orderedRank = getOrderedRank(soloQ.tier, soloQ.rank);
+  const ip = retrieveIp(req);
   const session = new Session({
     summonerName: summoner.name,
     server: server,
-    ipCreation: req.get('x-forwarded-for').split(',')[0],
+    ipCreation: ip,
     initialRank: {
       tier: soloQ.tier,
       rank: soloQ.rank,
@@ -90,10 +91,19 @@ const createSession = async (summoner, soloQ, server, req) => {
     looseNumber: 0,
     lpHistory: [],
     score: 0,
-    lastGame: null
+    lastGame: null,
+    createdAt: new Date()
   });
   await session.save();
   return Promise.resolve(session);
-}
+};
+
+const retrieveIp = (req) => {
+  const forwardedFor = req.get('x-forwarded-for');
+  if (!forwardedFor) {
+    return 'localhost';
+  }
+  return req.get('x-forwarded-for').split(',')[0];
+};
 
 module.exports = router;
