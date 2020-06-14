@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
     const unluckyLeaderboard = await getUnluckyLeaderboard();
     const luckyLeaderboard = await getLuckyLeaderboard();
     const todayUnluckyLeaderboard = await getTodayUnluckyLeaderboard();
-    const todayLuckyLeaderboard = await getTodayUnluckyLeaderboard();
+    const todayLuckyLeaderboard = await getTodayLuckyLeaderboard();
     res.send({
       luckyLeaderboard,
       unluckyLeaderboard,
